@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111116">
+<title>SloClips_ — Clipping Studio</title>
+<style>
+:root{--bg:#0c0c11;--panel:#15151d;--panel2:#1b1b25;--line:#292936;--muted:#9292a5;--text:#f4f3fa;--purple:#9b78ff;--pink:#d17cff;--green:#65d6a2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button{font:inherit;cursor:pointer}.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+aside{background:#101016;border-right:1px solid var(--line);padding:25px 16px;display:flex;flex-direction:column;gap:30px}
+.brand{display:flex;align-items:center;gap:11px;padding:0 10px;font-size:20px;font-weight:850;letter-spacing:-.8px}.brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#a58aff,#633ee5);display:grid;place-items:center;font-weight:900;color:white;box-shadow:0 6px 24px #7954ff44}
+.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1.6px;color:#77778b;font-weight:800;padding:0 12px;margin-bottom:8px}
+nav{display:grid;gap:5px}.nav{border:0;background:transparent;color:#a4a4b5;padding:11px 12px;border-radius:10px;text-align:left;display:flex;gap:12px;align-items:center}.nav:hover,.nav.active{background:#242033;color:white}.nav.active{box-shadow:inset 2px 0 var(--purple)}.ico{width:18px;text-align:center;color:#b6a2ff}
+.side-bottom{margin-top:auto}.status{background:#171720;border:1px solid var(--line);border-radius:13px;padding:14px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px}.status small{color:var(--muted)}
+main{padding:30px clamp(18px,3vw,42px);max-width:1600px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:28px}.crumb{color:var(--muted);font-size:12px}.top h1{font-size:26px;letter-spacing:-.8px;margin:3px 0 0}.top-actions{display:flex;gap:10px;align-items:center}.btn{border:1px solid var(--line);background:#1a1a24;color:white;border-radius:9px;padding:10px 14px}.btn.primary{background:linear-gradient(135deg,#9b78ff,#704be5);border:0;font-weight:750}.btn:hover{filter:brightness(1.12)}
+.pill{font-size:11px;color:#c8baff;background:#2a2142;border:1px solid #44336e;border-radius:30px;padding:5px 9px}
+.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px}.stat-label{color:var(--muted);font-size:12px}.stat-value{font-size:27px;font-weight:800;letter-spacing:-1px;margin:7px 0 2px}.stat-note{font-size:11px;color:#8f8fa2}.up{color:var(--green)}
+.workspace{grid-template-columns:minmax(0,1.65fr) minmax(280px,.85fr)}.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.card-head h2{font-size:15px;margin:0}.sub{color:var(--muted);font-size:11px}
+.preview{background:#08080c;border:1px solid #30303b;border-radius:12px;min-height:285px;display:grid;place-items:center;position:relative;overflow:hidden;background-image:radial-gradient(ellipse at 50% 40%,#30254c 0,transparent 55%),linear-gradient(135deg,#101018,#09090d)}
+.preview-inner{text-align:center;padding:25px}.play{width:54px;height:54px;border-radius:50%;background:#a17dff;color:#fff;border:0;font-size:20px;box-shadow:0 0 35px #8d65ff77}.preview h3{margin:13px 0 3px;font-size:15px}.preview p{margin:0;color:#9694a7;font-size:11px}.preview-tag{position:absolute;top:12px;left:12px;background:#171720dd;border:1px solid #3a3947;border-radius:6px;padding:5px 8px;font-size:10px}
+.timeline{margin-top:16px}.time-label{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-bottom:8px}.track{height:42px;background:#242431;border-radius:8px;position:relative;overflow:hidden}.segment{position:absolute;top:5px;height:32px;border-radius:5px;background:linear-gradient(90deg,#6c50c9,#a17cff);opacity:.9}.playhead{position:absolute;top:0;bottom:0;left:44%;width:2px;background:#fff;box-shadow:0 0 8px white}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.tools .btn{font-size:11px;padding:8px 10px}.suggestion{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.suggestion:last-child{border:0}.thumb{width:58px;height:44px;border-radius:8px;background:linear-gradient(135deg,#34234f,#7653a7);display:grid;place-items:center;font-size:18px}.s-title{font-weight:700;font-size:12px}.s-meta{color:var(--muted);font-size:10px}.score{margin-left:auto;color:#c6adff;font-weight:800;font-size:12px}
+.lower{grid-template-columns:1.15fr .85fr;margin-top:16px}.source{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)}.source:last-child{border:0}.source-name{display:flex;gap:10px;align-items:center}.source-icon{width:30px;height:30px;border-radius:9px;background:#242431;display:grid;place-items:center;font-weight:800}.source small{display:block;color:var(--muted);font-size:10px}.tag{font-size:10px;border:1px solid var(--line);border-radius:20px;padding:4px 8px;color:#aaaabd}.dest{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}.dest:last-child{border:0}.muted{color:var(--muted)}
+.notice{margin-top:17px;border:1px solid #46376b;background:#1c172b;color:#c8bbef;border-radius:11px;padding:12px 14px;font-size:11px}
+footer{color:#656578;font-size:10px;text-align:center;padding:24px 0}
+@media(max-width:900px){.app{grid-template-columns:1fr}aside{padding:13px 15px;gap:12px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:0 5px}.side-nav{display:flex;overflow:auto;gap:4px}.side-nav .eyebrow,.side-bottom{display:none}nav{display:flex;min-width:max-content}.nav{padding:9px}.nav span:last-child{font-size:11px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace,.lower{grid-template-columns:1fr}main{padding-top:22px}}
+@media(max-width:480px){.top{align-items:flex-start;flex-direction:column}.top-actions{width:100%}.top-actions .btn{flex:1}.stats{gap:9px}.card{padding:14px}.stat-value{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand"><div class="brand-mark">S</div><span>SloClips<span style="color:#a98aff">_</span></span></div>
+  <div class="side-nav">
+    <div class="eyebrow">Workspace</div>
+    <nav>
+      <button class="nav active" data-page="Overview"><span class="ico">▦</span><span>Overview</span></button>
+      <button class="nav" data-page="Clipping Studio"><span class="ico">✂</span><span>Clipping Studio</span></button>
+      <button class="nav" data-page="Discover Streamers"><span class="ico">◎</span><span>Discover Streamers</span></button>
+      <button class="nav" data-page="Clip Library"><span class="ico">▤</span><span>Clip Library</span></button>
+      <button class="nav" data-page="Performance"><span class="ico">↗</span><span>Performance</span></button>
+    </nav>
+  </div>
+  <div class="side-nav">
+    <div class="eyebrow">Manage</div>
+    <nav><button class="nav" data-page="Video Sources"><span class="ico">⌁</span><span>Video Sources</span></button><button class="nav" data-page="Settings"><span class="ico">⚙</span><span>Settings</span></button></nav>
+  </div>
+  <div class="side-bottom status"><div><span class="dot"></span><b style="font-size:12px">Studio preview</b></div><small>Demo interface · integrations not connected</small></div>
+</aside>
+<main>
+  <div class="top"><div><div class="crumb">WORKSPACE / <span id="crumb">OVERVIEW</span></div><h1 id="heading">Your clipping command center</h1></div><div class="top-actions"><span class="pill">BETA PREVIEW</span><button class="btn primary" id="newClip">＋ New clip</button></div></div>
+  <section class="grid stats">
+    <div class="card"><div class="stat-label">Clips created</div><div class="stat-value">24</div><div class="stat-note"><span class="up">↑ 12%</span> · sample data</div></div>
+    <div class="card"><div class="stat-label">Total views</div><div class="stat-value">128.4K</div><div class="stat-note"><span class="up">↑ 8.6%</span> · sample data</div></div>
+    <div class="card"><div class="stat-label">Waiting for review</div><div class="stat-value">6</div><div class="stat-note">Human approval required</div></div>
+    <div class="card"><div class="stat-label">Connected sources</div><div class="stat-value">0</div><div class="stat-note">Connect a source to begin</div></div>
+  </section>
+  <section class="grid workspace">
+    <div class="card">
+      <div class="card-head"><div><h2>Clipping Studio</h2><div class="sub">Preview · trim · caption · export</div></div><span class="tag">9:16 VERTICAL</span></div>
+      <div class="preview"><span class="preview-tag">VIDEO PREVIEW</span><div class="preview-inner"><button class="play" id="play">▶</button><h3>Your next viral moment starts here</h3><p>Import an authorized video to see your clip</p></div></div>
+      <div class="timeline"><div class="time-label"><span>00:00</span><span>00:15</span><span>00:30</span><span>00:45</span><span>01:00</span></div><div class="track"><div class="segment" style="left:8%;width:24%"></div><div class="segment" style="left:48%;width:17%;background:linear-gradient(90deg,#6946ad,#d17cff)"></div><div class="segment" style="left:76%;width:15%"></div><div class="playhead"></div></div></div>
+      <div class="tools"><button class="btn" data-demo="Trim tool">✂ Trim</button><button class="btn" data-demo="Caption editor">▤ Captions</button><button class="btn" data-demo="Vertical crop">▣ 9:16 crop</button><button class="btn primary" data-demo="Export preview">Export preview</button></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><h2>AI moment suggestions</h2><div class="sub">Example highlights · not generated yet</div></div><span class="pill">4 found</span></div>
+      <div class="suggestion"><div class="thumb">⚡</div><div><div class="s-title">Unexpected reaction</div><div class="s-meta">00:12 · 18 sec</div></div><div class="score">94</div></div>
+      <div class="suggestion"><div class="thumb">🎮</div><div><div class="s-title">Big gameplay moment</div><div class="s-meta">02:41 · 26 sec</div></div><div class="score">89</div></div>
+      <div class="suggestion"><div class="thumb">😂</div><div><div class="s-title">Funny conversation</div><div class="s-meta">08:06 · 21 sec</div></div><div class="score">86</div></div>
+      <div class="suggestion"><div class="thumb">🔥</div><div><div class="s-title">Chat goes wild</div><div class="s-meta">14:32 · 19 sec</div></div><div class="score">82</div></div>
+      <div class="notice">These are illustrative examples. AI detection will be connected to the video-processing backend later.</div>
+    </div>
+  </section>
+  <section class="grid lower">
+    <div class="card"><div class="card-head"><h2>Video sources</h2><span class="sub">Connect when ready</span></div>
+      <div class="source"><div class="source-name"><div class="source-icon">▶</div><div><b>YouTube</b><small>Videos and authorized VOD workflows</small></div></div><span class="tag">Not connected</span></div>
+      <div class="source"><div class="source-name"><div class="source-icon">◉</div><div><b>Twitch</b><small>Channel discovery and authorized clips</small></div></div><span class="tag">Not connected</span></div>
+      <div class="source"><div class="source-name"><div class="source-icon">K</div><div><b>Kick</b><small>Channel and livestream discovery</small></div></div><span class="tag">Not connected</span></div>
+    </div>
+    <div class="card"><div class="card-head"><h2>Publishing destinations</h2><span class="sub">Manual approval first</span></div>
+      <div class="dest"><span>♪ TikTok</span><span class="tag">Not connected</span></div>
+      <div class="dest"><span>◎ Instagram Reels</span><span class="tag">Not connected</span></div>
+      <div class="dest"><span>▶ YouTube Shorts</span><span class="tag">Not connected</span></div>
+      <div class="dest"><span>𝕏 X</span><span class="tag">Not connected</span></div>
+    </div>
+  </section>
+  <footer>SloClips_ · Clipping Studio preview · Sample metrics only</footer>
+</main>
+</div>
+<script>
+document.querySelectorAll('.nav').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+ const page=btn.dataset.page;document.getElementById('crumb').textContent=page.toUpperCase();document.getElementById('heading').textContent=page==='Overview'?'Your clipping command center':page;
+ if(page!=='Overview') alert(page+' view is part of the preview. Its working features will be added in the next build.');
+}));
+document.getElementById('newClip').addEventListener('click',()=>alert('Next step: connect the authorized video import and clip-processing workflow.'));
+document.getElementById('play').addEventListener('click',()=>alert('Import a video file to enable playback in the working studio.'));
+document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',()=>alert(b.dataset.demo+' will be wired to the video editor backend in the next build.')));
+</script>
+</body>
+</html>
